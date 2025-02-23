@@ -1,0 +1,50 @@
+char receivedChar; 
+const int relay1 = 8; 
+const int relay2 = 9; 
+
+void setup() {
+
+  Serial.begin(9600);
+
+  pinMode(relay1, OUTPUT);
+  pinMode(relay2, OUTPUT);
+
+  digitalWrite(relay1, HIGH);
+  digitalWrite(relay2, HIGH);
+
+  Serial.println("Bluetooth Home Automation");
+  Serial.println("Commands:");
+  Serial.println("1: Turn ON Device 1");
+  Serial.println("2: Turn OFF Device 1");
+  Serial.println("3: Turn ON Device 2");
+  Serial.println("4: Turn OFF Device 2");
+}
+
+void loop() {
+
+  if (Serial.available()) {
+    receivedChar = Serial.read(); 
+
+    switch (receivedChar) {
+      case '1': 
+        digitalWrite(relay1, LOW); 
+        Serial.println("Device 1 ON");
+        break;
+      case '2': 
+        digitalWrite(relay1, HIGH); 
+        Serial.println("Device 1 OFF");
+        break;
+      case '3': 
+        digitalWrite(relay2, LOW); 
+        Serial.println("Device 2 ON");
+        break;
+      case '4': 
+        digitalWrite(relay2, HIGH); 
+        Serial.println("Device 2 OFF");
+        break;
+      default:
+        Serial.println("Invalid Command");
+        break;
+    }
+  }
+}
